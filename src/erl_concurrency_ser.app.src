@@ -1,0 +1,12 @@
+{application, erl_concurrency_ser,
+ [
+  {description, ""},
+  {vsn, "1"},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib
+                 ]},
+  {mod, { erl_concurrency_ser_app, []}},
+  {env, []}
+ ]}.
