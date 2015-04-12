@@ -7,4 +7,6 @@
 %% API callbacks
 %% ===================================================================
 start() ->
+    lager:start(),
+    application:start(erl_concurrency_ser),
     ok.

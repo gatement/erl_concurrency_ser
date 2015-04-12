@@ -1,4 +1,5 @@
 -module(erl_concurrency_ser_sup).
+-include("erl_concurrency_ser.hrl").
 
 -behaviour(supervisor).
 
@@ -14,13 +15,13 @@
 %% ===================================================================
 %% API functions
 %% ===================================================================
-
 start_link() ->
     supervisor:start_link({local, ?MODULE}, ?MODULE, []).
 
 %% ===================================================================
 %% Supervisor callbacks
 %% ===================================================================
-
 init([]) ->
-    {ok, { {one_for_one, 5, 10}, []} }.
+    Server = ?CHILD(erl_concurrency_ser_server, worker),
+    TcpSup = ?CHILD(erl_concurrency_ser_tcp_sup, supervisor),  
+    {ok, {{one_for_one, 1000000, 1}, [Server, TcpSup]}}.

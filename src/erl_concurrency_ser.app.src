@@ -1,12 +1,14 @@
 {application, erl_concurrency_ser,
  [
-  {description, ""},
-  {vsn, "0.1."},
+  {description, "Erlang concurrency test - server"},
+  {vsn, "0.1.0"},
   {registered, []},
   {applications, [
                   kernel,
                   stdlib
                  ]},
   {mod, { erl_concurrency_ser_app, []}},
-  {env, []}
+  {env, [
+      {init_tcp_listener_count, 10}
+  ]}
  ]}.
