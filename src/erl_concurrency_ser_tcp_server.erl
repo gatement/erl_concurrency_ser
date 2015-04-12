@@ -19,7 +19,7 @@ start_link(LSocket) ->
 %% gen_server callbacks
 %% ===================================================================
 init([LSocket]) ->
-    ?LOG_INFO("started (pid=~p)", [erlang:self()]),
+    %?LOG_DEBUG("started (pid=~p)", [erlang:self()]),
     erlang:process_flag(trap_exit, true),
     State = #state{lsocket = LSocket},
     {ok, State, 0}.
@@ -46,7 +46,7 @@ handle_info(timeout, #state{socket = undefined, lsocket = LSocket} = State) ->
     after
         erl_concurrency_ser_tcp_sup:start_child()
     end,
-    ?LOG_INFO("accepted conn: ~p ", [Socket]),
+    %?LOG_DEBUG("accepted conn: ~p ", [Socket]),
     erl_concurrency_ser_server:increase(),
     {noreply, State#state{socket = Socket}, ?HEARTBEAT_TIMEOUT};
 
