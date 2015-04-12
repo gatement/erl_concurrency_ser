@@ -1,7 +1,7 @@
 {application, erl_concurrency_ser,
  [
   {description, ""},
-  {vsn, "1"},
+  {vsn, "0.1."},
   {registered, []},
   {applications, [
                   kernel,
