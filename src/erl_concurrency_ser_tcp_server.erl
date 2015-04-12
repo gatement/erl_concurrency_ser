@@ -25,11 +25,11 @@ init([LSocket]) ->
     {ok, State, 0}.
 
 handle_call(Msg, From, State) ->
-    ?LOG_DEBUG("handle_call: msg=~p, from=~p", [Msg, From]),
+    ?LOG_WARNING("handle_call: msg=~p, from=~p", [Msg, From]),
     {reply, error, State, ?HEARTBEAT_TIMEOUT}.
 
 handle_cast(Msg, State) ->
-    ?LOG_DEBUG("handle_cast: msg=~p", [Msg]),
+    ?LOG_WARNING("handle_cast: msg=~p", [Msg]),
     {noreply, State, ?HEARTBEAT_TIMEOUT}.
 
 handle_info({tcp, _Socket, Data}, State) ->
@@ -54,7 +54,7 @@ handle_info(timeout, State) ->
     {stop, {shutdown, no_heartbeat}, State};
 
 handle_info(Msg, State) ->
-    ?LOG_DEBUG("handle_info: msg=~p", [Msg]),
+    ?LOG_WARNING("handle_info: msg=~p", [Msg]),
     {noreply, State, ?HEARTBEAT_TIMEOUT}.
 
 terminate(Reason, #state{socket = Socket}) ->
@@ -63,7 +63,7 @@ terminate(Reason, #state{socket = Socket}) ->
         _ -> gen_tcp:close(Socket)
     end,
     erl_concurrency_ser_server:decrease(),
-    ?LOG_DEBUG("exit: reason=~p", [Reason]).
+    ?LOG_INFO("exit: reason=~p", [Reason]).
 
 code_change(_OldVsn, State, _Extra) ->
     {ok, State}.
@@ -74,5 +74,6 @@ code_change(_OldVsn, State, _Extra) ->
 process_received_bytes(<<>>, _) ->
     ok;
 process_received_bytes(<<Byte1:1/binary, Rest/binary>>, #state{socket = Socket} = State) ->
+    %?LOG_DEBUG("received data", []),
     ok = gen_tcp:send(Socket, Byte1),
     process_received_bytes(Rest, State).
