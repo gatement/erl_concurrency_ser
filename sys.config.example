@@ -1,5 +1,6 @@
 [
     {erl_concurrency_ser, [
+        {port, 10000},
         {init_tcp_listener_count, 10}
     ]},
     {lager, [

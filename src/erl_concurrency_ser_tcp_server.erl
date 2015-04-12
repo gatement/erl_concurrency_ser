@@ -1,6 +1,6 @@
 -module(erl_concurrency_ser_tcp_server).
--behaviour(gen_server).
 -include("erl_concurrency_ser.hrl").
+-behaviour(gen_server).
 
 -export([start_link/1]).
 -export([init/1, handle_call/3, handle_cast/2, handle_info/2, code_change/3, terminate/2]).

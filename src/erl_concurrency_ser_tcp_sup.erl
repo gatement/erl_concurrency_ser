@@ -27,7 +27,7 @@ start_child() ->
 	{ok, _} = supervisor:start_child(?MODULE, []).
 
 init([]) ->
-    Port = 10000,
+    {ok, Port} = application:get_env(port),
     ?LOG_INFO("starting TCP Listener on ~p:~p", [{0,0,0,0}, Port]),
 
     SocketOpts = [binary, {active, true}, {reuseaddr, true}, {ip, {0,0,0,0}}],
