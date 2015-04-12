@@ -1,7 +1,7 @@
 [
     {erl_concurrency_ser, [
         {port, 10000},
-        {init_tcp_listener_count, 10}
+        {init_tcp_listener_count, 100}
     ]},
     {lager, [
         {crash_log, "./var/log/crash.log"},
