@@ -30,7 +30,7 @@ init([]) ->
     {ok, Port} = application:get_env(port),
     ?LOG_INFO("starting TCP Listener on ~p:~p", [{0,0,0,0}, Port]),
 
-    SocketOpts = [binary, {active, true}, {reuseaddr, true}, {ip, {0,0,0,0}}],
+    SocketOpts = [binary, {active, true}, {reuseaddr, true}, {backlog, 100}, {ip, {0,0,0,0}}],
     {ok, LSocket} = gen_tcp:listen(Port, SocketOpts),
 
     Child = ?CHILD(erl_concurrency_ser_tcp_server, worker, [LSocket]),  
