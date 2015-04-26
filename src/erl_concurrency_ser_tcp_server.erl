@@ -57,13 +57,14 @@ handle_info(Msg, State) ->
     ?LOG_WARNING("handle_info: msg=~p", [Msg]),
     {noreply, State, ?HEARTBEAT_TIMEOUT}.
 
-terminate(Reason, #state{socket = Socket}) ->
+terminate(_Reason, #state{socket = Socket}) ->
     case Socket of
         undefined -> do_nothing;
         _ -> gen_tcp:close(Socket)
     end,
     erl_concurrency_ser_server:decrease(),
-    ?LOG_INFO("exit: reason=~p", [Reason]).
+    %?LOG_INFO("exit: reason=~p", [_Reason]),
+    ok.
 
 code_change(_OldVsn, State, _Extra) ->
     {ok, State}.
